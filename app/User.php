@@ -14,10 +14,24 @@ class User extends Authenticatable
      *
      * @var array
      */
+    const ADMIN_ROLE = 'admin';
+    const AGENT_ROLE = 'agent';
+    const DEFAULT_ROLE = 'customer';
+
     protected $fillable = [
         'name', 'email', 'password',
     ];
 
+
+    public function isAdmin()    {        
+    return $this->role === self::ADMIN_ROLE;    
+    }
+    
+    
+    
+    public function isAgent()    {        
+    return $this->role === self::AGENT_ROLE;    
+    }
     /**
      * The attributes that should be hidden for arrays.
      *

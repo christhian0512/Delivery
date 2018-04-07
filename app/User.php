@@ -19,7 +19,7 @@ class User extends Authenticatable
     const DEFAULT_ROLE = 'customer';
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','provider', 'provider_id'
     ];
 
 
@@ -32,6 +32,12 @@ class User extends Authenticatable
     public function isAgent()    {        
     return $this->role === self::AGENT_ROLE;    
     }
+    
+    public function verifyUser()
+    {
+        return $this->hasOne('App\VerifyUser');
+    }
+    
     /**
      * The attributes that should be hidden for arrays.
      *

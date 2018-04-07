@@ -21,8 +21,12 @@ Route::get('/admin', 'AdminController@admin')->middleware('role:false')
 Route::get('/overview', 'AdminController@overview')->middleware('role:true')
     ->name('overview');
     
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Auth::routes();
+Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
+Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
 
 

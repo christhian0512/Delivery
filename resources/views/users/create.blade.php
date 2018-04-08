@@ -1,14 +1,24 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
+<nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+        <li><a href="{{ URL::to('users') }}">View All users</a></li>
+        <li><a href="{{ URL::to('users/create') }}">Create a user</a>
+    </ul>
+</nav>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">Create user</div>
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                    <form class="form-horizontal" method="POST" action="{{route('users.store')}}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -68,13 +78,22 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+                         <div class="form-group">
+                            <label for="role" class="col-md-4 control-label">User role</label>
+                            <div class="col-md-6 col-md-offset-4">
+                                <select class="form-control" id="role" name="role" required>
+                                  <option value="admin">admin</option>
+                                  <option value="agent">agent</option>
+                                  <option value="customer">customer</option>
+                                </select>
+                            </div>
+                          </div> 
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     Register
                                 </button>
-                                <a href="{{ url('/auth/facebook') }}" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
                             </div>
                         </div>
                     </form>

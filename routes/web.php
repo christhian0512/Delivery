@@ -29,4 +29,7 @@ Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
 
+Route::resource('users', 'AdminController')->middleware('role:false');
+Route::post('/change/{user}', 'AdminController@update')->middleware('role:false')
+    ->name('user.change');
 
